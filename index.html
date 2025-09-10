@@ -1,0 +1,1043 @@
+<html lang="en">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>HuMo</title>
+    <meta name="description" content="Human-Centric Video Generation via Collaborative Multi-Modal Conditioning">
+    <meta name="keywords" content="Video Generation, Multi-Modal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#EDE8F5">
+    <meta property="og:image" content="">
+    <link rel="stylesheet" href="./assets/index.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.2/css/bootstrap.min.css'>
+    <link rel="shortcut icon" href="./assets/octopus.png" type="image/x-icon">
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-stretch: 100%;
+            font-display: block;
+            font-weight: 300 700;
+            src: url('./assets/roboto.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        @font-face {
+          font-family: 'DancingScript';
+          src: url('./assets/DancingScript-Bold.ttf') format('truetype');
+        }
+
+        @font-face {
+          font-family: 'Caveat';
+          src: url('./assets/Caveat-Medium.ttf') format('truetype');
+        }
+
+        @font-face {
+          font-family: 'Alegreya';
+          src: url('./assets/Alegreya-Regular.ttf') format('truetype');
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        video {
+            background-color: #000000;
+            aspect-ratio: 16 / 9;
+        }
+
+        section.portrait video {
+            background-color: #000000;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        section.multi_ip video {
+            background-color: #000000;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+        }
+
+        section.portrait .prompt-wrap.full-screen-wrap video {
+            object-fit: cover;
+        }
+
+        section.portrait .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
+        section.portrait2 .flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
+        section.portrait .flex > div {
+            flex: 0 0 calc((100% - 5 * 10px) / 6);
+        }
+        section.portrait2 .flex > div {
+            flex: 0 0 calc((100% - 1 * 10px) / 2);
+        }
+
+        section.portrait .prompt {
+            font-size: 10px;
+        }
+        section.portrait2 .prompt {
+            font-size: 12px;
+        }
+
+        section.portrait .flex-row {
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section.portrait2 .flex-row {
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            section.portrait .flex > div {
+                flex: 0 0 calc((100% - 1 * 10px) / 2);
+            }
+        }
+
+        @media (max-width: 768px) {
+            section.portrait2 .flex > div {
+                flex: 0 0 calc((100% - 0 * 10px) / 1);
+            }
+        }
+
+        /* Ensure prompt adjusts for portrait mode */
+        .portrait .prompt {
+            position: absolute;  /* Allow positioning relative to the container */
+            bottom: 5%;          /* Adjust this to control the vertical placement of the prompt */
+            left: 50%;           /* Center horizontally */
+            transform: translateX(-50%); /* Offset by 50% of its width to truly center */
+            max-width: 80%;
+            text-align: center;  /* Center the text inside the prompt */
+            color: white;        /* Optional, if you want the text to stand out */
+            font-size: 1.2em;    /* Optional, adjust the text size */
+        }
+
+        .portrait2 .prompt{
+            position: absolute;  /* Allow positioning relative to the container */
+            bottom: 5%;          /* Adjust this to control the vertical placement of the prompt */
+            left: 50%;           /* Center horizontally */
+            transform: translateX(-50%); /* Offset by 50% of its width to truly center */
+            max-width: 80%;
+            text-align: center;  /* Center the text inside the prompt */
+            color: white;        /* Optional, if you want the text to stand out */
+            font-size: 1.2em;    /* Optional, adjust the text size */
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: "Roboto", sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        #intro {
+            padding: 100px 0 0px 0;
+            justify-content: center; /* Center content vertically */
+            text-align: center; /* Center text alignment */
+            /* background-image: url('./assets/background.png'); */
+            background-size: cover; /* Cover the entire container */
+            background-position: center; /* Center the background image */
+            color: #ffffff; /* Ensure text color is readable */
+        }
+
+        #intro h1 {
+            font-size: 90px;
+            font-weight: 300;
+            margin: 20px 0;
+        } 
+
+        #intro h2 {
+            margin: 20px 0 40px 0;
+            font-weight: 300;
+            color: #ffffff
+        }
+
+        #intro h2 strong {
+            color: #fff;
+        }
+
+        .authors {
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 25px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .author-block {
+            display: inline-block;
+            margin: 0 10px 0 10px;
+        }
+
+        .author-block a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .author-block a:hover {
+            color: #fff;
+        }
+
+        .author-affiliation {
+            font-size: 16px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 60px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .author-affiliation .author-block {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        section {
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .content {
+            padding: 0 10%;
+        }
+
+        .button {
+            background-color: #ccc;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: background-color 0.5s;
+            text-decoration: none;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: #fff;
+        }
+
+        .bibtex-section {
+            background-color: #111;
+            padding: 40px 10%;
+            text-align: center;
+            margin-top: 60px;
+            color: #ccc;
+        }
+
+        .bibtex-section h3 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .bibtex-code {
+            background-color: #222;
+            color: #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            display: inline-block;
+            font-family: monospace;
+            max-width: 800px;
+            overflow-x: auto;
+        }
+
+        section {
+            margin-top: 80px;
+        }
+        section:first-of-type {
+            margin-top: 0;
+        }
+
+        .title {
+            background-color: #000;
+            position: sticky;
+            top: 0;
+            padding: 20px 10%;
+            font-size: 20px;
+            font-weight: 600;
+            z-index: 1000;
+            min-height: 60px;
+            box-sizing: border-box;
+        }
+
+        .description {
+            padding: 0 10% 20px 10%;
+            color: #999;
+            line-height: 25px;
+            font-weight: 300;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .flex-row {
+            display: flex;
+            column-gap: 5px;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            padding: 0 5px 5px 5px;
+            
+        }
+
+        .flex-row > div {
+            flex-grow: 1;
+            flex-basis: 0;
+            position: relative;
+        }
+
+        .flex > div {
+            width: calc(100% / 3 - 5px * 2 / 3);
+            margin-top: 2.5px;
+            margin-bottom: 2.5px;
+            position: relative;
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0 5px;
+        }
+
+        .prompt-wrap {
+            position: relative;
+        }
+
+        .flex-2 {
+            justify-content: center;
+            column-gap: 5px;
+        }
+        .flex-2 > div {
+            width: calc(100% / 2 - 5px / 2);
+            min-width: calc(100% / 3 - 5px * 2 / 3);
+            max-width: calc(100vh - 200px);
+        }
+
+        video, img {
+            width: 100%;
+        }
+
+        .loading-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .loading-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .loading-icon {
+            font-size: 48px;
+        }
+
+        .prompt {
+            max-width: calc(100% - 20px);
+            position: absolute;
+            background: rgba(0,0,0,0.5);
+            color: rgba(255,255,255,0.9);
+            font-size: 10px;
+            backdrop-filter: blur(10px);
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            box-sizing: border-box;
+        }
+
+        .flex-very-compact .full-screen-button {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            border-radius: 0;
+        }
+
+        .chinese {
+            font-family: 'Noto Sans SC', sans-serif;
+            font-weight: bold;
+            color: #d18585;
+            font-size: 1.1em;
+        }
+
+        @media (hover: hover) {
+            .prompt-wrap:hover .prompt,
+            .full-screen-wrap:hover .full-screen-button {
+                opacity: 1;
+                pointer-events: all;
+            }
+            #contributors a:hover {
+                background-color: #222;
+            }
+        }
+
+        @media (hover: none) {
+            #contributors a {
+                pointer-events: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .flex-dynamic > div {
+                width: calc(100% / 2 - 5px / 2);
+            }
+        }
+
+        @media (max-width: 640px) {
+            #intro h1 {
+                font-size: 50px;
+            }
+            #intro h2 {
+                font-size: 20px;
+            }
+            .ruler {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 512px) {
+            .flex-dynamic > div,
+            .flex-dynamic-1 > div {
+                width: 100%;
+            }
+
+            .content {
+                padding: 0 12px;
+            }
+
+            .description {
+                padding: 0 12px 20px 12px;
+            }
+
+            .title {
+                padding: 20px 12px;
+            }
+
+            .ruler-tight {
+                font-size: 6px;
+                column-gap: 0;
+            }
+
+            .title-long {
+                font-size: 16px;
+            }
+
+        }
+
+        .margin-top {
+            margin-top: 50px;
+        }
+
+        .ruler {
+            text-align: center;
+            position: sticky;
+            top: 60px;
+            z-index: 999;
+            background-color: #000;
+            color: #999;
+            padding: 5px 0;
+        }
+
+        .ruler > div {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .selected {
+            box-shadow: 0 0 0 5px #fff;
+        }
+
+        #title-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        #title-icon {
+          height: 8em;
+          width: auto;
+          margin-right: 0px;
+          vertical-align: middle;
+        }
+
+        .title-art {
+          font-family: 'DancingScript', sans-serif;
+        }
+
+        .title-art2 {
+          font-family: 'Caveat', sans-serif;
+        }
+
+        .title-art3 {
+          font-family: 'Alegreya', sans-serif;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: rgb(255, 255, 255);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        #video-wrapper {
+          border-radius: 50px;
+          max-width: 720px;
+          padding-bottom: 40%; 
+          margin: 0 auto;
+          background: #000000;
+        }
+
+        .ethics-section {
+            padding: 100px 10%;
+            text-align: center;
+            margin-top: 60px;
+            color: #ccc;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .acknowledgements-section {
+            padding: 100px 10%;
+            text-align: center;
+            margin-top: 60px;
+            color: #ccc;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+        }
+        .video-container video {
+            width: 100%;
+            max-width: 800px;
+            max-height: 450px;
+            height: auto;
+        }
+        .units-rule {
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: center;
+            align-items: center;
+            column-gap: 0.75rem;
+        }
+        .units-rule i {
+            display: block;
+            width: 1px;
+            height: 1em;
+            background: currentColor;
+            opacity: 0.25;             /* 细且淡的竖线 */
+        }
+    </style>
+</head>
+<body>
+    <section id="intro">
+        <div class="content">
+            <div id="title-container">
+              <img id="title-icon" src="./assets/octopus.png" alt="Icon">
+              <h1><strong>HuMo</strong></h1>
+            </div>
+            <h2><strong>Human-Centric Video Generation via Collaborative Multi-Modal Conditioning</strong></h2>
+            <div class="authors">
+                <span class="author-block"><a href="https://scholar.google.com/citations?user=jk6jWXgAAAAJ">Liyang Chen</a><sup>*</sup></span>
+                <span class="author-block"><a href="https://tianxiangma.github.io/">Tianxiang Ma</a><sup>*</sup></span>
+                <span class="author-block"><a href="https://scholar.google.com/citations?user=X21Fz-EAAAAJ">Jiawei Liu</a></span>
+                <span class="author-block"><a href="https://scholar.google.com/citations?user=ac5Se6QAAAAJ">Bingchuan Li</a><sup>&dagger;</sup></span>
+                <span class="author-block"><a href="https://scholar.google.com/citations?user=ow1jGJkAAAAJ">Zhuowei Chen</a></span>
+                <span class="author-block"><a href="https://liulj13.github.io">Lijie Liu</a></span>
+                <span class="author-block"><a href="https://scholar.google.com.hk/citations?user=KMrFk2MAAAAJ">Xu He</a></span>
+                <span class="author-block"><a href="https://scholar.google.com/citations?user=wqA7EIoAAAAJ">Gen Li</a></span>
+                <span class="author-block"><a href="https://scholar.google.com/citations?user=9rWWCgUAAAAJ">Qian He</a></span>
+                <span class="author-block"><a href="https://scholar.google.com/citations?user=7Xl6KdkAAAAJ&">Zhiyong Wu</a><sup>&sect;</sup></span>
+            </div>
+
+            <!-- Added the affiliations section -->
+            <div class="author-affiliation">
+                <p>
+                    <span>
+                        <sup>*</sup> Equal contribution, 
+                        <sup>&dagger;</sup> Project lead, 
+                        <sup>&sect;</sup> Corresponding author
+                    </span>
+                </p>
+                <p class="units-rule">
+                    <span>Tsinghua University</span>
+                    <i aria-hidden="true"></i>
+                    <span>Intelligent Creation Team, Bytedance</span>
+                </p>
+            </div>
+
+            <a class="button" href="https://arxiv.org/abs/2502.11079" target="_blank" rel="noopener noreferrer">
+                Research Paper
+            </a>
+            <a class="button" href="https://github.com/Phantom-video/HuMo" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-github" style="font-size:17px"></i>
+                GitHub
+            </a>
+        </div>
+    </section>
+
+    <div class="container text-center" style="margin-top: 50px; text-align: center;">
+      <p class="title-art3" style="font-size: 1.6em;"> Faceless Thrones - A short Video by HuMo in TA & TIA Modes</p>
+      <p class="description" style="font-size: 1.0em;"> Please turn on the sound for watching</p>
+    </div>
+    
+
+    <div class="video-container">
+        <video controls>
+            <source src="./assets/videos/teaser_30M.mp4" type="video/mp4">
+            Faceless Thrones
+        </video>
+    </div>
+
+    <section id="video">
+        <div class="title" style="font-family: 'Alegreya'; font-size: 1.6em;">
+          Video Generation from Text & Image
+        </div>
+        <div class="description">
+            Our method generates high-quality, text-aligned and subject-consistent videos. <em><strong>Hover over the video to reveal the text prompt.</strong></em>
+        </div>
+        
+        <div class="flex flex-dynamic">
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image/1.mp4"></video>
+                <div class="prompt">A handsome man with neatly combed hair dons a black suit and a white shirt. He then gracefully puts on a pair of rich, deep brown leather gloves with fine stitching and a slightly ruched wrist area. The man's posture is confident as he focuses on the task of wearing the gloves, and the frame captures the entire scene in a complete and detailed manner.</div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image/2.mp4"></video>
+                <div class="prompt">A woman with long, curly black hair, wearing a light - purple knitted short - sleeved top, a necklace, and pearl earrings, is sound asleep on a large bed in a room. She has on silver - gray over - ear headphones. The room features round portholes with a view of the blue sea outside, wooden wall panels, and a white table lamp. A small Chihuahua with brown and white fur and perked - up ears is quietly lying on the bed beside her.</div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image/3.mp4"></video>
+                <div class="prompt">A woman with short black hair and golden spherical earrings dons a casual outfit consisting of a light - beige short - sleeved top printed with "The Sneaker Culture" and light - blue ripped jeans. She also adorns a flower - pearl necklace decorated with pearls, white flowers, and a transparent butterfly. The woman appears fully in the frame, facing the camera, showcasing her stylish ensemble.</div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image/4.mp4"></video>
+                <div class="prompt">A man with gray-white hair, wearing a dark green sweater, a man with glasses, dressed in a suit and a blue-and-white striped tie, a bearded man in a dark blue T-shirt, and a woman with long flowing hair, wearing a black off the shoulder top, step into an ancient Chinese Buddhist temple. A slow push in shot, starting from a long shot and moving to a close up.</div>
+            </div>
+            
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image/5.mp4"></video>
+                <div class="prompt">Warm sunlight bathes the grassy field. A young girl with twin-tails and green bows in her hair, wearing a light-green frilly dress, crouches beside blooming daisies. A brown and white dog, its fluffy tail wagging merrily, walks toward her. The girl smiles and holds up a toy camera with a yellow and red color scheme and blue buttons, ready to capture the moment. Slow motion.</div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image/6.mp4"></video>
+                <div class="prompt">A young witch, adorned with a large red bow on her head, wearing a black top and a white apron, takes flight on a broomstick. Accompanying her is a black kitten with a red bow around its neck. They soar through the gaps between lush, green trees, where sunlight filters through the leaves. Above them is a clear blue sky dotted with fluffy white clouds.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="video">
+      <div class="title" style="font-family: 'Alegreya'; font-size: 1.6em;">
+        Video Generation from Text & Audio 
+      </div>
+
+      <div class="description">
+        Our method generates text-aligned and audio-synced videos. <em><strong>Please turn on the sound for watching. Hover over the video to reveal the text prompt.</strong></em>
+      </div>
+
+      <div class="flex flex-dynamic">
+          <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+            <div class="loading-placeholder">
+                <div class="loading-text">Loading...</div>
+                <div class="loading-icon">&#9749</div>
+             </div>
+            <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_audio/1.mp4"></video>
+            <div class="prompt">
+                A handheld tracking shot follows a female warrior walking through a cave. Her determined eyes are locked straight ahead as she grips a blazing torch tightly in her hand. She speaks with intensity.
+            </div>
+          </div>
+          <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+            <div class="loading-placeholder">
+                <div class="loading-text">Loading...</div>
+                <div class="loading-icon">&#9749</div>
+             </div>
+            <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_audio/2.mp4"></video>
+            <div class="prompt">
+                A sophisticated woman aged 25 wears a chic, season-appropriate blazer and blouse, embodying an intellectual host. Outdoors on a high-end street, she speaks professionally, gesturing with her hands and slightly raising her right palm outward.
+            </div>
+          </div>
+          <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+            <div class="loading-placeholder">
+                <div class="loading-text">Loading...</div>
+                <div class="loading-icon">&#9749</div>
+             </div>
+            <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_audio/3.mp4"></video>
+            <div class="prompt">
+                A woman dressed as a mermaid swims gracefully underwater, her long wavy blonde hair flowing freely. She wears a silver tail and a patterned top, with delicate earrings. Sunlight filters through the clear blue water, creating a serene, magical atmosphere as she explores peacefully.
+            </div>
+          </div>
+          <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+            <div class="loading-placeholder">
+                <div class="loading-text">Loading...</div>
+                <div class="loading-icon">&#9749</div>
+             </div>
+            <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_audio/4.mp4"></video>
+            <div class="prompt">
+                A close-up of an elderly sailor in weathered yellow oilskins, holding a pipe and speaking with a serious expression while looking right. His yellow cat curls up beside him as gentle waves lap the hull and seabirds circle overhead. The static camera captures his expressive face and upper body throughout.
+            </div>
+          </div>
+          <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+            <div class="loading-placeholder">
+                <div class="loading-text">Loading...</div>
+                <div class="loading-icon">&#9749</div>
+             </div>
+            <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_audio/5.mp4"></video>
+            <div class="prompt">
+                A medium shot of a man in a red soccer jersey clenching his fists in anger as he witnesses an injustice unfolding on the field. He speaks while his hands remain firmly curled, his emotions evident in every gesture. The blurred background of the soccer field and players adds to the intensity of the moment.
+            </div>
+          </div>
+          <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+            <div class="loading-placeholder">
+                <div class="loading-text">Loading...</div>
+                <div class="loading-icon">&#9749</div>
+            </div>
+            <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_audio/6.mp4"></video>
+            <div class="prompt">
+                A scientist with shoulder-length blonde hair, wearing a white lab coat over a dark blue blouse, sits right in a lab chair, curiously tilting a vial of glowing blue liquid. Facing left, she speaks to a partially blurred colleague across from her in a high-tech lab. The camera remains static throughout.
+            </div>
+          </div>
+      </div>
+  </section>
+
+    <section id="multi_ip">
+        <div class="title" style="font-family: 'Alegreya'; font-size: 1.6em;">
+            Video Generation from Text, Image & Audio
+        </div>
+
+        <div class="description">
+            Our method generates text-aligned, subject-consistent, and audio-synced video. <em><strong>Please turn on the sound for watching. Hover over the video to reveal the text prompt.</strong></em>
+        </div>
+
+        <div class="flex flex-dynamic">
+
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/1.mp4"></video>
+                <div class="prompt">
+                    A close-up of a flight attendant with short blonde hair, seated upright in a tan leather airplane seat, speaking on a silver corded phone. She wears a dark uniform with a matching neck scarf, maintaining a composed, professional demeanor. Closed window blinds and a softly lit table lamp set the cabin background as she continues speaking, facing forward.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/2.mp4"></video>
+                <div class="prompt">
+                    A camera tracking shot of a female warrior rushing, her armor glinting under the light. Her determined eyes are locked ahead. She speaks with intensity while charging forward
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/3.mp4"></video>
+                <div class="prompt">
+                    A woman in a bulky space suit with a large helmet speaks to the camera against a blurred Mars backdrop. Her face remains clearly visible, framed by loose strands of tied-back hair and dark, determined eyes. A static close-up captures her expressive face and upper body as she continues speaking.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/4.mp4"></video>
+                <div class="prompt">
+                    A woman with long, wavy dark hair walks through a flower-filled park, wearing a light blue-gray, long-sleeved dress with a tied waist—matching one seen on a hanger. Warm, window-like light bathes her figure, highlighting the dress's elegant design and her graceful movements.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/5.mp4"></video>
+                <div class="prompt">
+                    A man with short dark hair, wearing a crisp white shirt and dark suit, joyfully plays with his black Labrador Retriever in front of a cozy house. Smiling brightly, he tosses a toy as the sleek, droopy-eared dog responds eagerly on the well-kept lawn, creating a warm, lively moment under the open sky.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/6.mp4"></video>
+                <div class="prompt">
+                    A man with wavy brown hair, wearing a light collared shirt and a cheerful smile, energetically plays with a brown leather football on a sunlit beach. The golden sand glistens, waves lap the shore, and seagulls soar under a clear blue sky, as he enthusiastically passes and catches the ball in the lively seaside breeze.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/7.mp4"></video>
+                <div class="prompt">
+                    In a neon-lit cyberpunk corridor, a young woman with long silvery hair moves gracefully in black cybernetic armor with glowing blue accents. Her suit reveals her shoulders and midriff, with mechanical gear on her arm, embodying the futuristic vibe.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/8.mp4"></video>
+                <div class="prompt">
+                    A reddish-brown haired and bearded man sits pensively against swirling blue-and-white brushstrokes, dressed in a blue coat and dark waistcoat. The artistic backdrop and his thoughtful pose evoke a Post-Impressionist style in a studio-like setting.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_image_audio/9.mp4"></video>
+                <div class="prompt">
+                    On a blue snowflake-patterned stage with floating ice particles, a woman with a long blonde braid sings passionately, wearing a shimmering teal gown with sheer sleeves, expressing emotion with an extended arm.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Text Control / Edit">
+        <div class="title" style="font-family: 'Alegreya'; font-size: 1.6em;">
+            Text Control / Edit
+        </div>
+
+        <div class="description">
+            <em><strong>Please turn on the sound for watching.</strong></em> Given the same subject reference images but different text prompts, our method achieves collaborative text-image controllability. 
+        </div>
+
+        <div class="flex flex-dynamic">
+
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_control/1.mp4"></video>
+                <div class="prompt">
+                    1. He wears light gray thin framed glasses, a white inner shirt, and a black outer coat, with short black hair. <br>
+                    2. He wears stylish black rectangular glasses, a light blue dress shirt, and a tailored navy blazer, with neatly styled short brown hair.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_control/2.mp4"></video>
+                <div class="prompt">
+                    1. He wears sunglasses, a dark suit jacket over a crisp white dress shirt. <br>
+                    2. He is wears a stylish fedora hat, a tailored navy blazer over a light blue dress shirt, and a vibrant patterned tie. His accessories include a sleek watch and a leather briefcase.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_control/3.mp4"></video>
+                <div class="prompt">
+                    1. A man donning a light blue button down shirt with a chest pocket. <br>
+                    2. A man wearing a crisp white t-shirt layered under a stylish navy blazer. He sports a sleek watch on his wrist and a pair of trendy sunglasses resting on his head.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_control/4.mp4"></video>
+                <div class="prompt">
+                    1. A baby with short, light brown hair. The baby is clad in a garment featuring a blue striped collar and gray fabric adorned with a small dark emblem. <br>
+                    2. A baby with short, light brown hair styled in soft curls. The baby is dressed in a vibrant red onesie with a white polka dot collar and gray fabric adorned with a small dark emblem. The baby wears a cute matching headband with a bow, adding a playful touch.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_control/5.mp4"></video>
+                <div class="prompt">
+                    1. A woman with platinum blonde hair that transitions into aqua - green at the tips. She wears long dangling earrings. <br>
+                    2. A woman with deep chestnut hair styled in loose waves, adorned with a delicate floral headband. She wears elegant gold hoop earrings and a flowing white sundress that complements the lush greenery around her.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/text_control/6.mp4"></video>
+                <div class="prompt">
+                    1. A man dressed in a tailored dark gray suit with a small red emblem on the left lapel, a crisp white dress shirt, and a dark blue tie adorned with light - blue square patterns. <br>
+                    2. The video presents a close-up shot of a young man. He has short, styled black hair with a modern quiff. A silver chain necklace is around his neck, complementing a fitted black turtleneck sweater.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Subject Preservation Comparison">
+        <div class="title" style="font-family: 'Alegreya'; font-size: 1.6em;">
+            Subject Preservation Comparison
+        </div>
+
+        <div class="description">
+            Compared with other methods, our method shows strong ability on text following and subject preservation. <br>
+            The notable points in the video are marked in <span style="color: red; font-weight: bold;">red</span> in the given prompt.
+        </div>
+
+        <!-- <div class="flex flex-dynamic"> -->
+        <div class="flex flex-dynamic" style="flex-direction: column; align-items: center;">
+
+            <div class="prompt-wrap full-screen-wrap" style="width: 60%; position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/s2v_compare/1.mp4"></video>
+                <div class="prompt">
+                A young witch, adorned with a large red bow on her head, wearing a black top and a white apron, takes flight on a broomstick. Accompanying her is a black kitten with a red bow around its neck. They soar through the gaps between lush, green trees, where sunlight filters through the leaves. Above them is a clear blue sky dotted with fluffy white clouds.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="width: 60%; position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/s2v_compare/2.mp4"></video>
+                <div class="prompt">
+                A handsome man with neatly combed hair dons a black suit and a white shirt. He then <span style="color: red; font-weight: bold;">gracefully puts on a pair of rich, deep brown leather gloves</span> with fine stitching and a slightly ruched wrist area. The man's posture is confident as he focuses on the task of wearing the gloves, and the frame captures the entire scene in a complete and detailed manner.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="width: 60%; position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video autoplay playsinline muted loop onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/s2v_compare/3.mp4"></video>
+                <div class="prompt">
+                A gray-haired <span style="color: red; font-weight: bold;">man</span>, a suited <span style="color: red; font-weight: bold;">man</span> with glasses, a bearded <span style="color: red; font-weight: bold;">man</span>, and a <span style="color: red; font-weight: bold;">woman</span> in a black top, step into an ancient Chinese Buddhist temple. A long shot  slowly moving to a close up.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Audio-Visual Sync Comparison">
+        <div class="title" style="font-family: 'Alegreya'; font-size: 1.6em;">
+            Audio-Visual Sync Comparison
+        </div>
+
+        <div class="description">
+            <em><strong>Please turn on the sound for watching.</strong></em> Compared with other methods, our method shows strong ability on text following, subject preservation and audio-visual sync. <br>
+            The notable points in the video are marked in <span style="color: red; font-weight: bold;">red</span> in the given prompt.
+        </div>
+
+        <!-- <div class="flex flex-dynamic"> -->
+        <div class="flex flex-dynamic" style="flex-direction: column; align-items: center;">
+
+            <div class="prompt-wrap full-screen-wrap" style="width: 60%; position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/avsync_compare/1.mp4"></video>
+                <div class="prompt">
+                A man in a checkered shirt and headphones sings, plays <span style="color: red; font-weight: bold;">a silver guitar</span>, and speaks to the camera in a recording studio. A static front shot captures his rhythmic movements and deeply focused, emotionally engaged expression against a lit, card-decorated black wall.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="width: 60%; position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/avsync_compare/2.mp4"></video>
+                <div class="prompt">
+                A gray-haired, bearded man in his 60s speaks thoughtfully to the camera at a Paris café. Wearing a wool coat, button-down shirt, brown beret, and glasses, he has a professorial look. A static close-up captures his mostly still upper body, lit by cinematic <span style="color: red; font-weight: bold;">golden light with Parisian streets</span> in the background.
+                </div>
+            </div>
+            <div class="prompt-wrap full-screen-wrap" style="width: 60%; position: relative;">
+                <div class="loading-placeholder">
+                    <div class="loading-text">Loading...</div>
+                    <div class="loading-icon">&#9749</div>
+                </div>
+                <video playsinline loop controls onloadeddata="this.style.display='block'; this.previousElementSibling.style.display='none';" src="./assets/videos/avsync_compare/3.mp4"></video>
+                <div class="prompt">
+                A woman in a bulky space suit with a large helmet speaks to the camera against a blurred Mars backdrop. <span style="color: red; font-weight: bold;">Her face remains clearly visible</span>, framed by loose strands of tied-back hair and dark, determined eyes. A static close-up captures her expressive face and upper body as she continues speaking.
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
