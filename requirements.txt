@@ -16,3 +16,5 @@ audio-separator==0.24.1
 moviepy==1.0.3
 onnxruntime-gpu
 mediapipe==0.10.18
+omegaconf
+mediapy

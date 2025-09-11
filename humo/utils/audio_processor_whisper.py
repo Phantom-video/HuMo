@@ -15,8 +15,7 @@ from audio_separator.separator import Separator
 from einops import rearrange
 from transformers import WhisperModel, AutoFeatureExtractor
 
-from data.audio.util import resample_audio
-from humo.data.audio.wav2vec import linear_interpolation_fps
+from humo.utils.wav2vec import linear_interpolation_fps
 
 
 class AudioProcessor:
