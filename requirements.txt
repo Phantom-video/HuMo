@@ -17,3 +17,4 @@ moviepy==1.0.3
 onnxruntime-gpu
 mediapipe==0.10.18
 mediapy
+omegaconf

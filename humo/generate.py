@@ -171,8 +171,6 @@ class Generator():
             self.dit.load_state_dict(state, strict=False, assign=True)
         
         self.dit = meta_non_persistent_buffer_init_fn(self.dit)
-        if device in [get_device(), "cuda"]:
-            self.dit.to(get_device())
 
         # Print model size.
         params = sum(p.numel() for p in self.dit.parameters())
@@ -433,8 +431,8 @@ class Generator():
         return feat_merge
     
     def parse_output(self, output):
-        latent = output["latent"][0]
-        mask = output["mask"]
+        latent = output[0]
+        mask = output[1] if len(output) > 1 else None
         return latent, mask
     
     def forward_tia(self, latents, timestep, t, step_change, arg_tia, arg_ti, arg_i, arg_null):
