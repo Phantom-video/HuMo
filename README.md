@@ -18,6 +18,7 @@ Tsinghua University | Intelligent Creation Team, ByteDance
 ## 🔥 Latest News
 
 * A Best-Practice Guide for HuMo will be released soon. Stay tuned.
+* Sep 17, 2025: 🔥🔥 [ComfyUI](https://github.com/comfyanonymous/ComfyUI/pull/9903) officially supports HuMo-1.7B!
 * Sep 16, 2025: 🔥🔥 We release the [1.7B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-1.7B), which generate a 480P video in 8 minutes on a 32G GPU. The visual quality is lower than that of the 17B model, but the audio-visual sync remains nearly unaffected.
 * Sep 13, 2025: 🔥🔥 The 17B model is merged into [ComfyUI-Wan](https://github.com/kijai/ComfyUI-WanVideoWrapper), which can be run on a NVIDIA 3090 GPU. Thank [kijai](https://github.com/kijai) for the update!
 * Sep 10, 2025: 🔥🔥 We release the [17B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-17B) and inference codes.
@@ -109,6 +110,7 @@ diffusion:
 #### 1. Text-Audio Input
 
 ``` sh
+git pull  # always remember to pull latest codes!
 bash scripts/infer_ta.sh  # infer with 17B model
 bash scripts/infer_ta_1_7B.sh  # infer with 1.7B model
 ```
@@ -116,6 +118,7 @@ bash scripts/infer_ta_1_7B.sh  # infer with 1.7B model
 #### 2. Text-Image-Audio Input
 
 ``` sh
+git pull  # always remember to pull latest codes!
 bash scripts/infer_tia.sh  # infer with 17B model
 bash scripts/infer_tia_1_7B.sh  # infer with 1.7B model
 ```
