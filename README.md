@@ -41,6 +41,7 @@ HuMo is a unified, human-centric video generation framework designed to produce 
   - [x] Text-Image-Audio Input
 - [x] Multi-GPU Inference
 - [ ] Best-Practice Guide of HuMo for Movie-Level Generation
+- [ ] Checkpoint for Longer Generation
 - [ ] Prompts to Generate Demo of ***Faceless Thrones***
 - [ ] Training Data
 
@@ -61,6 +62,7 @@ conda install -c conda-forge ffmpeg
 |--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|
 | HuMo-17B      | 🤗 [Huggingface](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-17B)   | Supports 480P & 720P 
 | HuMo-1.7B | 🤗 [Huggingface](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-1.7B) | Lightweight on 32G GPU
+| HuMo-Longer | 🤗 [Huggingface](https://huggingface.co/bytedance-research/HuMo) | Longer generation to be released in Oct.
 | Wan-2.1 | 🤗 [Huggingface](https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B) | VAE & Text encoder
 | Whisper-large-v3 |      🤗 [Huggingface](https://huggingface.co/openai/whisper-large-v3)          | Audio encoder
 | Audio separator |      🤗 [Huggingface](https://huggingface.co/huangjackson/Kim_Vocal_2)          | Remove background noise (optional)
