@@ -18,7 +18,8 @@ Tsinghua University | Intelligent Creation Team, ByteDance
 ## 🔥 Latest News
 
 * A Best-Practice Guide for HuMo will be released soon. Stay tuned.
-* Sep 17, 2025: 🔥🔥 [ComfyUI](https://github.com/comfyanonymous/ComfyUI/pull/9903) officially supports HuMo-1.7B!
+* Sep 30, 2025: 🔥🔥 We release the [dataset](https://github.com/Phantom-video/Phantom-Data) for training subject preservation.
+* Sep 17, 2025: 🔥🔥 [ComfyUI](https://blog.comfy.org/p/humo-and-chroma1-radiance-support) officially supports HuMo-1.7B!
 * Sep 16, 2025: 🔥🔥 We release the [1.7B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-1.7B), which generate a 480P video in 8 minutes on a 32G GPU. The visual quality is lower than that of the 17B model, but the audio-visual sync remains nearly unaffected.
 * Sep 13, 2025: 🔥🔥 The 17B model is merged into [ComfyUI-Wan](https://github.com/kijai/ComfyUI-WanVideoWrapper), which can be run on a NVIDIA 3090 GPU. Thank [kijai](https://github.com/kijai) for the update!
 * Sep 10, 2025: 🔥🔥 We release the [17B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-17B) and inference codes.
