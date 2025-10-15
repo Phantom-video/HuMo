@@ -4,6 +4,7 @@
 <a href="https://arxiv.org/abs/2509.08519"><img src="https://img.shields.io/badge/arXiv%20paper-2509.08519-b31b1b.svg"></a>
 <a href="https://phantom-video.github.io/HuMo/"><img src="https://img.shields.io/badge/Project_page-More_visualizations-green"></a>
 <a href="https://huggingface.co/bytedance-research/HuMo"><img src="https://img.shields.io/static/v1?label=%F0%9F%A4%97%20Hugging%20Face&message=Model&color=orange"></a>
+<a href='https://openbayes.com/console/public/tutorials/KhniTI5hwrf'><img src='https://img.shields.io/badge/Live Playground-OpenBayes贝式计算-blue'></a>
 
 [Liyang Chen](https://scholar.google.com/citations?user=jk6jWXgAAAAJ&hl)<sup> * </sup>, [Tianxiang Ma](https://tianxiangma.github.io/)<sup> * </sup>, [Jiawei Liu](https://scholar.google.com/citations?user=X21Fz-EAAAAJ), [Bingchuan Li](https://scholar.google.com/citations?user=ac5Se6QAAAAJ)<sup> &dagger; </sup>, <br>[Zhuowei Chen](https://scholar.google.com/citations?user=ow1jGJkAAAAJ), [Lijie Liu](https://liulj13.github.io/), [Xu He](https://scholar.google.com/citations?user=KMrFk2MAAAAJ&hl), [Gen Li](https://scholar.google.com/citations?user=wqA7EIoAAAAJ), [Qian He](https://scholar.google.com/citations?user=9rWWCgUAAAAJ), [Zhiyong Wu](https://scholar.google.com/citations?user=7Xl6KdkAAAAJ)<sup> § </sup><br>
 <sup> * </sup>Equal contribution, <sup> &dagger; </sup>Project lead, <sup> § </sup>Corresponding author  
@@ -18,11 +19,12 @@ Tsinghua University | Intelligent Creation Team, ByteDance
 ## 🔥 Latest News
 
 * A Best-Practice Guide for HuMo will be released soon. Stay tuned.
-* Sep 30, 2025: 🔥🔥 We release the [dataset](https://github.com/Phantom-video/Phantom-Data) for training subject preservation.
-* Sep 17, 2025: 🔥🔥 [ComfyUI](https://blog.comfy.org/p/humo-and-chroma1-radiance-support) officially supports HuMo-1.7B!
-* Sep 16, 2025: 🔥🔥 We release the [1.7B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-1.7B), which generate a 480P video in 8 minutes on a 32G GPU. The visual quality is lower than that of the 17B model, but the audio-visual sync remains nearly unaffected.
-* Sep 13, 2025: 🔥🔥 The 17B model is merged into [ComfyUI-Wan](https://github.com/kijai/ComfyUI-WanVideoWrapper), which can be run on a NVIDIA 3090 GPU. Thank [kijai](https://github.com/kijai) for the update!
-* Sep 10, 2025: 🔥🔥 We release the [17B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-17B) and inference codes.
+* Sep 30, 2025: 🔥🔥 OpenBayes provides 3 hours of free GPU computation for testing the 1.7B and 17B models. You can easily get started by following the [tutorial](https://openbayes.com/console/public/tutorials/KhniTI5hwrf). We welcome you to give it a try.
+* Sep 30, 2025: 🔥 We release the [Stage-1 dataset](https://github.com/Phantom-video/Phantom-Data) for training subject preservation.
+* Sep 17, 2025: [ComfyUI](https://blog.comfy.org/p/humo-and-chroma1-radiance-support) officially supports HuMo-1.7B!
+* Sep 16, 2025: We release the [1.7B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-1.7B), which generate a 480P video in 8 minutes on a 32G GPU. The visual quality is lower than that of the 17B model, but the audio-visual sync remains nearly unaffected.
+* Sep 13, 2025: The 17B model is merged into [ComfyUI-Wan](https://github.com/kijai/ComfyUI-WanVideoWrapper), which can be run on a NVIDIA 3090 GPU. Thank [kijai](https://github.com/kijai) for the update!
+* Sep 10, 2025: We release the [17B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-17B) and inference codes.
 * Sep 9, 2025: We release the [Project Page](https://phantom-video.github.io/HuMo/) and [Technique Report](https://arxiv.org/abs/2509.08519/) of **HuMo**.
 
 
