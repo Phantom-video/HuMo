@@ -19,7 +19,7 @@ Tsinghua University | Intelligent Creation Team, ByteDance
 ## 🔥 Latest News
 
 * A Best-Practice Guide for HuMo will be released soon. Stay tuned.
-* Sep 30, 2025: 🔥🔥 OpenBayes provides 3 hours of free GPU computation for testing the 1.7B and 17B models. You can easily get started by following the [tutorial](https://openbayes.com/console/public/tutorials/KhniTI5hwrf). We welcome you to give it a try.
+* Oct 15, 2025: 🔥🔥 OpenBayes provides 3 hours of free GPU computation for testing the 1.7B and 17B models. You can easily get started by following the [tutorial](https://openbayes.com/console/public/tutorials/KhniTI5hwrf). We welcome you to give it a try.
 * Sep 30, 2025: 🔥 We release the [Stage-1 dataset](https://github.com/Phantom-video/Phantom-Data) for training subject preservation.
 * Sep 17, 2025: [ComfyUI](https://blog.comfy.org/p/humo-and-chroma1-radiance-support) officially supports HuMo-1.7B!
 * Sep 16, 2025: We release the [1.7B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-1.7B), which generate a 480P video in 8 minutes on a 32G GPU. The visual quality is lower than that of the 17B model, but the audio-visual sync remains nearly unaffected.
