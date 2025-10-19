@@ -19,6 +19,7 @@ Tsinghua University | Intelligent Creation Team, ByteDance
 ## 🔥 Latest News
 
 * A Best-Practice Guide for HuMo will be released soon. Stay tuned.
+* Oct 19, 2025: 🔥🔥 A [HuggingFace Space](https://huggingface.co/spaces/alexnasa/HuMo_local) is provided for convenient test. Thank [OutofAi](https://github.com/OutofAi) for the update.
 * Oct 15, 2025: 🔥🔥 OpenBayes provides 3 hours of free GPU computation for testing the 1.7B and 17B models. You can easily get started by following the [tutorial](https://openbayes.com/console/public/tutorials/KhniTI5hwrf). We welcome you to give it a try.
 * Sep 30, 2025: 🔥 We release the [Stage-1 dataset](https://github.com/Phantom-video/Phantom-Data) for training subject preservation.
 * Sep 17, 2025: [ComfyUI](https://blog.comfy.org/p/humo-and-chroma1-radiance-support) officially supports HuMo-1.7B!
