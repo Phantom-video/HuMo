@@ -147,16 +147,16 @@ The reference image of the person in the video is displayed in the top-left corn
   <!-- Row 1 -->
   <tr>
     <td width=25% style="border: none">
-      <video src="assets/video/000a522f92a96fc3126ead73376d2092.mp4" controls width="100%"></video>
+      <video src="https://github.com/user-attachments/assets/647d0a42-9016-49c6-b7f2-853dafbe3289" controls width="100%"></video>
     </td>
     <td width=25% style="border: none">
-      <video src="assets/video/001955692ad769e927008d0b9d24ca14.mp4" controls width="100%"></video>
+      <video src="https://github.com/user-attachments/assets/a1384ec0-3a89-49ed-a799-6e46ed355aef" controls width="100%"></video>
     </td>
     <td width=25% style="border: none">
-      <video src="assets/video/00462dcb946f63dd46de095717e4d0d1.mp4" controls width="100%"></video>
+      <video src="https://github.com/user-attachments/assets/823f7588-0d1c-406a-ae49-ad9387fcdeb8" controls width="100%"></video>
     </td>
     <td width=25% style="border: none">
-      <video src="assets/video/0059276f0359e11345a018afd153fd36.mp4" controls width="100%"></video>
+      <video src="https://github.com/user-attachments/assets/32406d85-5194-4117-9464-923888cfae3a" controls width="100%"></video>
     </td>
   </tr>
   <tr style="text-align: center;">
@@ -169,16 +169,16 @@ The reference image of the person in the video is displayed in the top-left corn
   <!-- Row 2 -->
   <tr>
     <td width=25% style="border: none">
-      <video src="assets/video/0071e4a8b4028b46216bb97c2ef11265.mp4" controls width="100%"></video>
+      <video src="https://github.com/user-attachments/assets/ef2afe59-31c2-45a0-9d28-6fabdeb87210" controls width="100%"></video>
     </td>
     <td width=25% style="border: none">
-      <video src="assets/video/00a0ccf45b30ae435d8af62e1389ea51.mp4" controls width="100%"></video>
+      <video src="https://github.com/user-attachments/assets/ebd39de2-d18d-46e0-8f6d-1f3afbe4e6de" controls width="100%"></video>
     </td>
     <td width=25% style="border: none">
-      <video src="assets/video/00a1bc0299048596f13b361afb3fc7f5.mp4" controls width="100%"></video>
+      <video src="https://github.com/user-attachments/assets/dfe69941-cafd-47f2-bc05-f25fdecd8572" controls width="100%"></video>
     </td>
     <td width=25% style="border: none">
-      <video src="assets/video/00a9e945550e7141aaa1b2f04454e96e.mp4" controls width="100%"></video>
+      <video src="https://github.com/user-attachments/assets/5c01c497-8ce4-4721-8177-2f3156360baa" controls width="100%"></video>
     </td>
   </tr>
   <tr style="text-align: center;">
