@@ -141,7 +141,7 @@ Although the HuMo paper utilizes this dataset primarily for stage 2 training, it
 - Open Source Origin: All videos and reference images are curated exclusively from open-source datasets (such as **[OpenHumanVid](https://github.com/fudan-generative-vision/OpenHumanVid)**). No internal or proprietary company data is included.
 
 ### Demonstration
-The reference image of the person in the video is displayed in the top-left corner, while the video description is shown below the video.
+The reference image of the person in the video is displayed in the top-left corner, while the video description is shown below the video. **Please scroll right on the table below to view more cases.**
 
 <table class="center">
   <!-- Row 1 -->
