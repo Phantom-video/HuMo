@@ -3,6 +3,7 @@
 
 <a href="https://arxiv.org/abs/2509.08519"><img src="https://img.shields.io/badge/arXiv%20paper-2509.08519-b31b1b.svg"></a>
 <a href="https://phantom-video.github.io/HuMo/"><img src="https://img.shields.io/badge/Project_page-More_visualizations-green"></a>
+<a href="https://modelscope.cn/datasets/leoniuschen/HuMoSet"><img src="https://img.shields.io/badge/Dataset-Download-red?logo=googlechrome&logoColor=red"></a>
 <a href="https://huggingface.co/bytedance-research/HuMo"><img src="https://img.shields.io/static/v1?label=%F0%9F%A4%97%20Hugging%20Face&message=Model&color=orange"></a>
 <a href='https://openbayes.com/console/public/tutorials/KhniTI5hwrf'><img src='https://img.shields.io/badge/Live Playground-OpenBayes贝式计算-blue'></a>
 
@@ -18,10 +19,10 @@ Tsinghua University | Intelligent Creation Team, ByteDance
 
 ## 🔥 Latest News
 
-* A Best-Practice Guide for HuMo will be released soon. Stay tuned.
-* Oct 19, 2025: 🔥🔥 A [HuggingFace Space](https://huggingface.co/spaces/alexnasa/HuMo_local) is provided for convenient test. Thank [OutofAi](https://github.com/OutofAi) for the update.
-* Oct 15, 2025: 🔥🔥 OpenBayes provides 3 hours of free GPU computation for testing the 1.7B and 17B models. You can easily get started by following the [tutorial](https://openbayes.com/console/public/tutorials/KhniTI5hwrf). We welcome you to give it a try.
-* Sep 30, 2025: 🔥 We release the [Stage-1 dataset](https://github.com/Phantom-video/Phantom-Data) for training subject preservation.
+* Dec 23, 2025. 🔥🔥 We release [HuMoSet dataset](https://modelscope.cn/datasets/leoniuschen/HuMoSet) containing 670K video samples with diverse reference images, dense video captions, and strict audio-visual synchronization.
+* Oct 19, 2025: A [HuggingFace Space](https://huggingface.co/spaces/alexnasa/HuMo_local) is provided for convenient test. Thank [OutofAi](https://github.com/OutofAi) for the update.
+* Oct 15, 2025: OpenBayes provides 3 hours of free GPU computation for testing the 1.7B and 17B models. You can easily get started by following the [tutorial](https://openbayes.com/console/public/tutorials/KhniTI5hwrf). We welcome you to give it a try.
+* Sep 30, 2025: We release the [Stage-1 dataset](https://github.com/Phantom-video/Phantom-Data) for training subject preservation.
 * Sep 17, 2025: [ComfyUI](https://blog.comfy.org/p/humo-and-chroma1-radiance-support) officially supports HuMo-1.7B!
 * Sep 16, 2025: We release the [1.7B weights](https://huggingface.co/bytedance-research/HuMo/tree/main/HuMo-1.7B), which generate a 480P video in 8 minutes on a 32G GPU. The visual quality is lower than that of the 17B model, but the audio-visual sync remains nearly unaffected.
 * Sep 13, 2025: The 17B model is merged into [ComfyUI-Wan](https://github.com/kijai/ComfyUI-WanVideoWrapper), which can be run on a NVIDIA 3090 GPU. Thank [kijai](https://github.com/kijai) for the update!
@@ -41,14 +42,14 @@ HuMo is a unified, human-centric video generation framework designed to produce 
 - [x] Checkpoint of HuMo-17B
 - [x] Checkpoint of HuMo-1.7B
 - [x] Inference Codes
-  - [ ] Text-Image Input
+  - ~~[ ] Text-Image Input~~
   - [x] Text-Audio Input
   - [x] Text-Image-Audio Input
 - [x] Multi-GPU Inference
 - [ ] Best-Practice Guide of HuMo for Movie-Level Generation
 - [ ] Checkpoint for Longer Generation
 - [ ] Prompts to Generate Demo of ***Faceless Thrones***
-- [ ] Training Data
+- [x] Training Data
 
 ## ⚡️ Quickstart
 
@@ -127,8 +128,87 @@ bash scripts/infer_tia.sh  # infer with 17B model
 bash scripts/infer_tia_1_7B.sh  # infer with 1.7B model
 ```
 
-## Acknowledgements
-Our work builds upon and is greatly inspired by several outstanding open-source projects, including [Phantom](https://github.com/Phantom-video/Phantom), [SeedVR](https://github.com/IceClear/SeedVR?tab=readme-ov-file), [MEMO](https://github.com/memoavatar/memo), [Hallo3](https://github.com/fudan-generative-vision/hallo3), [OpenHumanVid](https://github.com/fudan-generative-vision/OpenHumanVid), [OpenS2V-Nexus](https://github.com/PKU-YuanGroup/OpenS2V-Nexus), [ConsisID](https://github.com/PKU-YuanGroup/ConsisID) and [Whisper](https://github.com/openai/whisper). We sincerely thank the authors and contributors of these projects for generously sharing their excellent codes and ideas.
+## 🎞️ [HuMoSet Dataset](https://modelscope.cn/datasets/leoniuschen/HuMoSet)
+Although the HuMo paper utilizes this dataset primarily for stage 2 training, it is fully capable of supporting training on top of existing video foundation models for a wide range of applications, including but not limited to:
+1. **Talking Human Models:** Training highly realistic talking head generation systems.
+2. **Multimodal Control:** Developing models like **[HuMo](https://github.com/Phantom-video/HuMo)** with precise multimodal conditional control capabilities, supporting inputs such as **text, reference images, and audio**.
+3. **Customized Video Generation:** Creating advanced generative models (e.g., **[Sora 2-level capabilities](https://openai.com/index/sora-2)**) that support customized identity and voice preservation.
+
+### Key Features
+- Diverse Reference Images: For every video sample, we provide a corresponding reference image featuring the same identity (ID) but with distinct variations in clothing, accessories, background, and hairstyle. This diversity is crucial for robust identity preservation training.
+- Dense Video Descriptions: We utilize Qwen2.5-VL to generate dense, high-quality descriptive captions for each video, enabling fine-grained text-to-video capabilities.
+- Audio-Visual Synchronization: All video samples are strictly processed to ensure perfect synchronization between audio and visual tracks.
+- Open Source Origin: All videos and reference images are curated exclusively from open-source datasets (such as **[OpenHumanVid](https://github.com/fudan-generative-vision/OpenHumanVid)**). No internal or proprietary company data is included.
+
+### Demonstration
+The reference image of the person in the video is displayed in the top-left corner, while the video description is shown below the video.
+
+<table class="center">
+  <!-- Row 1 -->
+  <tr>
+    <td width=25% style="border: none">
+      <video src="assets/video/000a522f92a96fc3126ead73376d2092.mp4" controls width="100%"></video>
+    </td>
+    <td width=25% style="border: none">
+      <video src="assets/video/001955692ad769e927008d0b9d24ca14.mp4" controls width="100%"></video>
+    </td>
+    <td width=25% style="border: none">
+      <video src="assets/video/00462dcb946f63dd46de095717e4d0d1.mp4" controls width="100%"></video>
+    </td>
+    <td width=25% style="border: none">
+      <video src="assets/video/0059276f0359e11345a018afd153fd36.mp4" controls width="100%"></video>
+    </td>
+  </tr>
+  <tr style="text-align: center;">
+    <td width=25% style="border: none">A middle-aged man with short, graying hair sits upright in a dimly lit home setting, facing the camera. He wears a purple-and-white plaid shirt, remains mostly still, and speaks with a serious, concerned expression.</td>
+    <td width=25% style="border: none">In an office-like setting, a blonde woman in a black leather jacket faces a man in a dark suit seen from behind. She remains still, maintains eye contact, and displays a serious, focused expression, suggesting determination.</td>
+    <td width=25% style="border: none">Against a gray stone wall, a woman in a tan military uniform stands upright, speaking with a serious, focused expression. A similarly dressed man stands behind her holding a rifle, remaining still and attentive.</td>
+    <td width=25% style="border: none">In a dimly lit office with bookshelves, a man wearing glasses and a vest sits facing a woman, holding and gesturing with a plaid shirt as he speaks earnestly. The woman, mostly still and seen from the side, listens attentively.</td>
+  </tr>
+
+  <!-- Row 2 -->
+  <tr>
+    <td width=25% style="border: none">
+      <video src="assets/video/0071e4a8b4028b46216bb97c2ef11265.mp4" controls width="100%"></video>
+    </td>
+    <td width=25% style="border: none">
+      <video src="assets/video/00a0ccf45b30ae435d8af62e1389ea51.mp4" controls width="100%"></video>
+    </td>
+    <td width=25% style="border: none">
+      <video src="assets/video/00a1bc0299048596f13b361afb3fc7f5.mp4" controls width="100%"></video>
+    </td>
+    <td width=25% style="border: none">
+      <video src="assets/video/00a9e945550e7141aaa1b2f04454e96e.mp4" controls width="100%"></video>
+    </td>
+  </tr>
+  <tr style="text-align: center;">
+    <td width=25% style="border: none">In a wood-paneled office, a man in a tweed jacket and tie sits upright and speaks with a serious, thoughtful expression to someone in a dark suit seen from behind.</td>
+    <td width=25% style="border: none">Outdoors in front of a brick house, a red-haired woman wearing gardening gloves holds pruning shears and faces the camera, appearing focused as she explains something.</td>
+    <td width=25% style="border: none">In a store or office setting, a man in a maroon sweater sits facing another person, maintaining steady eye contact with a neutral, slightly focused expression while the other listens from off-camera.</td>
+    <td width=25% style="border: none">In a dim, bluish environment, a young boy in a red jacket leans against a large marine creature. He opens his eyes and shifts from calm to concerned, showing fear and vulnerability as the creature gently rests a hand on his shoulder in comfort.</td>
+  </tr>
+</table>
+
+### Download
+
+You can download the dataset by cloning the repository from ModelScope:
+
+```bash
+# Option 1: Using ModelScope. Much faster for users in the Chinese Mainland
+pip install modelscope[framework]
+modelscope download --dataset leoniuschen/HuMoSet --local_dir ./HuMoSet
+
+# Option 2: Using Git
+git lfs install
+git clone https://modelscope.cn/datasets/leoniuschen/HuMoSet.git
+```
+Dataset Structure:
+- `video/`: This folder contains the target video files.
+- `reference_image/`: This folder stores the corresponding reference image for each video.
+- `video_caption.parquet`: A metadata file containing the dense descriptions for all videos.
+
+## 👍 Acknowledgements
+Our work builds upon and is greatly inspired by several outstanding open-source projects, including [Wan2.1](https://github.com/Wan-Video/Wan2.1), [Phantom](https://github.com/Phantom-video/Phantom), [SeedVR](https://github.com/IceClear/SeedVR?tab=readme-ov-file), [MEMO](https://github.com/memoavatar/memo), [Hallo3](https://github.com/fudan-generative-vision/hallo3), [OpenHumanVid](https://github.com/fudan-generative-vision/OpenHumanVid), [OpenS2V-Nexus](https://github.com/PKU-YuanGroup/OpenS2V-Nexus), [ConsisID](https://github.com/PKU-YuanGroup/ConsisID), [Qwen2.5-VL](https://arxiv.org/abs/2502.13923) and [Whisper](https://github.com/openai/whisper). We sincerely thank the authors and contributors of these projects for generously sharing their excellent codes and ideas.
 
 ## ⭐ Citation
 
