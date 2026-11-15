@@ -6,6 +6,7 @@
 <a href="https://modelscope.cn/datasets/leoniuschen/HuMoSet"><img src="https://img.shields.io/badge/Dataset-Download-red?logo=googlechrome&logoColor=red"></a>
 <a href="https://huggingface.co/bytedance-research/HuMo"><img src="https://img.shields.io/static/v1?label=%F0%9F%A4%97%20Hugging%20Face&message=Model&color=orange"></a>
 <a href='https://openbayes.com/console/public/tutorials/KhniTI5hwrf'><img src='https://img.shields.io/badge/Live Playground-OpenBayes贝式计算-blue'></a>
+<a href="https://cloud.swmgpu.com/w/samofvaani/causal-framewise-humo-video"><img src="https://img.shields.io/badge/swm%20cloud-HuMo%20ComfyUI-0F766E"></a>
 
 [Liyang Chen](https://scholar.google.com/citations?user=jk6jWXgAAAAJ&hl)<sup> * </sup>, [Tianxiang Ma](https://tianxiangma.github.io/)<sup> * </sup>, [Jiawei Liu](https://scholar.google.com/citations?user=X21Fz-EAAAAJ), [Bingchuan Li](https://scholar.google.com/citations?user=ac5Se6QAAAAJ)<sup> &dagger; </sup>, <br>[Zhuowei Chen](https://scholar.google.com/citations?user=ow1jGJkAAAAJ), [Lijie Liu](https://liulj13.github.io/), [Xu He](https://scholar.google.com/citations?user=KMrFk2MAAAAJ&hl), [Gen Li](https://scholar.google.com/citations?user=wqA7EIoAAAAJ), [Qian He](https://scholar.google.com/citations?user=9rWWCgUAAAAJ), [Zhiyong Wu](https://scholar.google.com/citations?user=7Xl6KdkAAAAJ)<sup> § </sup><br>
 <sup> * </sup>Equal contribution, <sup> &dagger; </sup>Project lead, <sup> § </sup>Corresponding author  
